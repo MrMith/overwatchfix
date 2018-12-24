@@ -6,20 +6,20 @@ using System.Collections.Generic;
 
 namespace Overwatch
 {
-
 	[PluginDetails(
 	author = "Mith",
 	name = "overwatchfix",
 	description = "Tries to fix the glitch where MTF spawns at the start of the round if someone is in overwatch.",
 	id = "mith.overwatchfix",
-	version = "0.0.1",
+	version = "0.0.2",
 	SmodMajor = 3,
 	SmodMinor = 2,
-	SmodRevision = 0
+	SmodRevision = 1
 	)]
 
 	class OverwatchMain : Plugin
 	{
+		public static Plugin plugin;
 		public static Dictionary<string, Boolean> CheckIfSteamIdIsInOverwatch = new Dictionary<string, bool>();
 
 		public override void OnDisable()
@@ -29,6 +29,7 @@ namespace Overwatch
 		
 		public override void OnEnable()
 		{
+			plugin = this;
 			this.Info(this.Details.id + " " + this.Details.version + " has been Enabled.");
 		}
 

@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Overwatch
 {
-	public class OverwatchEventLogic : IEventHandlerWaitingForPlayers, IEventHandlerUpdate ,IEventHandlerRoundStart
+	public class OverwatchEventLogic : IEventHandlerWaitingForPlayers, IEventHandlerUpdate ,IEventHandlerRoundStart,IEventHandlerRoundEnd
 	{
-
+		DateTime timeOnEvent = DateTime.Now;
 		readonly Plugin plugin;
 		public OverwatchEventLogic(Plugin plugin)
 		{
@@ -21,7 +21,7 @@ namespace Overwatch
 
 		public static async Task ReturnOverWatchAfterRoundStarted()
 		{
-			await Task.Delay(1000);
+			await Task.Delay(500);
 
 			foreach (Player playa in Smod2.PluginManager.Manager.Server.GetPlayers())
 			{
@@ -30,7 +30,11 @@ namespace Overwatch
 					playa.OverwatchMode = true;
 				}
 			}
+
+			OverwatchMain.plugin.eventManager.RemoveEventHandlers(OverwatchMain.plugin);
+			OverwatchMain.plugin.AddEventHandler(typeof(IEventHandlerRoundEnd), new OverwatchEventLogic(OverwatchMain.plugin));
 		}
+
 
 		public void OnRoundStart(RoundStartEvent ev)
 		{
@@ -39,19 +43,13 @@ namespace Overwatch
 
 		public void OnUpdate(UpdateEvent ev)
 		{
-			DateTime timeOnEvent = DateTime.Now;
 			if (DateTime.Now >= timeOnEvent)
 			{
-				if (Smod2.PluginManager.Manager.Server.Round.Duration != 0)
-				{
-					return;
-				}
 				timeOnEvent = DateTime.Now.AddSeconds(0.5);
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
 					if (player.OverwatchMode)
 					{
-						plugin.Info(player.Name);
 						player.OverwatchMode = false;
 						OverwatchMain.CheckIfSteamIdIsInOverwatch[player.SteamId] = true;
 					}
@@ -61,13 +59,22 @@ namespace Overwatch
 
 		public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
 		{
-			OverwatchMain.CheckIfSteamIdIsInOverwatch.Clear();
-
 			if (plugin.GetConfigBool("overwatch_disable"))
 			{
 				Smod2.PluginManager.Manager.DisablePlugin(plugin.Details.id);
 				return;
 			}
+			OverwatchMain.CheckIfSteamIdIsInOverwatch.Clear();
+		}
+
+		public void OnRoundEnd(RoundEndEvent ev)
+		{
+			plugin.eventManager.RemoveEventHandlers(plugin);
+			OverwatchEventLogic events = new OverwatchEventLogic(plugin);
+			plugin.AddEventHandler(typeof(IEventHandlerRoundEnd), events);
+			plugin.AddEventHandler(typeof(IEventHandlerRoundStart), events);
+			plugin.AddEventHandler(typeof(IEventHandlerUpdate), events);
+			plugin.AddEventHandler(typeof(IEventHandlerWaitingForPlayers), events);
 		}
 	}
 }
