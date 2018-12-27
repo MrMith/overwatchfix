@@ -1,4 +1,5 @@
 # OverwatchFix
+This plugin checks for anyone with overwatch before the round starts and deactivates it. When the round starts anyone who was deactivated is set back to overwatch after a 0.5 seconds delay.
 
 ## Install Instructions.
 Put overwatchFix.dll into sm_plugins folder.
