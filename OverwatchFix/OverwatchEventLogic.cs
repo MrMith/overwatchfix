@@ -61,7 +61,7 @@ namespace Overwatch
 
 		public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
 		{
-			if (plugin.GetConfigBool("overwatch_disable"))
+			if (plugin.GetConfigBool("ow_disable"))
 			{
 				Smod2.PluginManager.Manager.DisablePlugin(plugin.Details.id);
 				return;

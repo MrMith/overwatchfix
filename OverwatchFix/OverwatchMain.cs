@@ -38,7 +38,7 @@ namespace Overwatch
 			this.AddEventHandlers(new OverwatchEventLogic(this));
 
 			this.AddConfig(new Smod2.Config.ConfigSetting("ow_disable", false, Smod2.Config.SettingType.BOOL, true, "Disables the entire of this plugin."));
-			this.AddConfig(new Smod2.Config.ConfigSetting("ow_restore", false, Smod2.Config.SettingType.BOOL, true, "Should they restore the people to overwatch when the round starts?"));
+			this.AddConfig(new Smod2.Config.ConfigSetting("ow_restore", false, Smod2.Config.SettingType.BOOL, true, "Should people get restored to overwatch when the round starts?"));
 
 			this.AddCommand("overwatch_version", new Overwatch_Version(this));
 			this.AddCommand("overwatch_disable", new Overwatch_Version(this));

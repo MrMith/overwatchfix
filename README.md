@@ -8,7 +8,8 @@ Put overwatchFix.dll into sm_plugins folder.
 ## Config Options.
 | Config Option              | Value Type      | Default Value | Description |
 |   :---:                    |     :---:       |    :---:      |    :---:    |
-| overwatch_disable          | Boolean         | false         | Disable the entire overwatchFix plugin. |
+| ow_disable          | Boolean         | false         | Disable the entire overwatchFix plugin. |
+| ow_restore          | Boolean         | false         | Should people get restored to overwatch when the round starts? |
 
 | Command(s)                 | Value Type      | Description                              |
 |   :---:                    |     :---:       |    :---:                                 |
