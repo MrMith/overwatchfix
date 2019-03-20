@@ -3,17 +3,16 @@ using Smod2.Events;
 using Smod2.EventHandlers;
 using Smod2.API;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Overwatch
 {
-	public class OverwatchEventLogic : IEventHandlerWaitingForPlayers, IEventHandlerUpdate ,IEventHandlerRoundStart,IEventHandlerRoundEnd
+	public class OverwatchEventLogic : IEventHandlerWaitingForPlayers, IEventHandlerUpdate, IEventHandlerRoundStart, IEventHandlerRoundEnd
 	{
 		DateTime timeOnEvent = DateTime.Now;
 		readonly Plugin plugin;
+		static bool ow_restore;
+
 		public OverwatchEventLogic(Plugin plugin)
 		{
 			this.plugin = plugin;
@@ -23,11 +22,14 @@ namespace Overwatch
 		{
 			await Task.Delay(500);
 
-			foreach (Player playa in Smod2.PluginManager.Manager.Server.GetPlayers())
+			if(ow_restore)
 			{
-				if (OverwatchMain.CheckIfSteamIdIsInOverwatch.ContainsKey(playa.SteamId))
+				foreach (Player playa in Smod2.PluginManager.Manager.Server.GetPlayers())
 				{
-					playa.OverwatchMode = true;
+					if (OverwatchMain.CheckIfSteamIdIsInOverwatch.ContainsKey(playa.SteamId))
+					{
+						playa.OverwatchMode = true;
+					}
 				}
 			}
 
@@ -45,7 +47,7 @@ namespace Overwatch
 		{
 			if (DateTime.Now >= timeOnEvent)
 			{
-				timeOnEvent = DateTime.Now.AddSeconds(0.5);
+				timeOnEvent = DateTime.Now.AddSeconds(0.25);
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
 					if (player.OverwatchMode)
@@ -65,6 +67,7 @@ namespace Overwatch
 				return;
 			}
 			OverwatchMain.CheckIfSteamIdIsInOverwatch.Clear();
+			ow_restore = plugin.GetConfigBool("ow_restore");
 		}
 
 		public void OnRoundEnd(RoundEndEvent ev)

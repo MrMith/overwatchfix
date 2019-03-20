@@ -4,7 +4,7 @@ using Smod2.Commands;
 namespace Overwatch
 {
 	class Overwatch_Version : ICommandHandler
-	{ 
+	{
 
 		private Plugin plugin;
 		public Overwatch_Version(Plugin plugin)

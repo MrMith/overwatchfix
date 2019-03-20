@@ -11,10 +11,10 @@ namespace Overwatch
 	name = "overwatchfix",
 	description = "Tries to fix the glitch where MTF spawns at the start of the round if someone is in overwatch.",
 	id = "mith.overwatchfix",
-	version = "0.0.2",
+	version = "0.0.3",
 	SmodMajor = 3,
-	SmodMinor = 2,
-	SmodRevision = 1
+	SmodMinor = 3,
+	SmodRevision = 0
 	)]
 
 	class OverwatchMain : Plugin
@@ -24,9 +24,9 @@ namespace Overwatch
 
 		public override void OnDisable()
 		{
-			this.Info(this.Details.id +" "+ this.Details.version +" has been Disabled.");
+			this.Info(this.Details.id + " " + this.Details.version + " has been Disabled.");
 		}
-		
+
 		public override void OnEnable()
 		{
 			plugin = this;
@@ -37,7 +37,8 @@ namespace Overwatch
 		{
 			this.AddEventHandlers(new OverwatchEventLogic(this));
 
-			this.AddConfig(new Smod2.Config.ConfigSetting("overwatch_disable", false, Smod2.Config.SettingType.BOOL, true, "Disables the entire of this plugin."));
+			this.AddConfig(new Smod2.Config.ConfigSetting("ow_disable", false, Smod2.Config.SettingType.BOOL, true, "Disables the entire of this plugin."));
+			this.AddConfig(new Smod2.Config.ConfigSetting("ow_restore", false, Smod2.Config.SettingType.BOOL, true, "Should they restore the people to overwatch when the round starts?"));
 
 			this.AddCommand("overwatch_version", new Overwatch_Version(this));
 			this.AddCommand("overwatch_disable", new Overwatch_Version(this));
