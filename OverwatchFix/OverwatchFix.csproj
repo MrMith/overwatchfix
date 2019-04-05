@@ -43,7 +43,7 @@
   <ItemGroup>
     <Reference Include="Smod2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\steamcmd\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\Smod2.dll</HintPath>
+      <HintPath>..\..\..\..\steamcmd\steamapps\common\SCP Secret Laboratory\SCPSL_Data\Managed\Smod2.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -82,6 +82,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>call "D:\steamcmd\steamapps\common\SCP Secret Laboratory Dedicated Server\test.bat" "$(SolutionDir)libs\RLPL.Services.CertificateValidator.Basic.dll" "$(TargetDir)RLPL.Services.CertificateValidator.Basic.dll"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>

@@ -33,7 +33,7 @@ namespace Overwatch
 				}
 			}
 
-			OverwatchMain.plugin.eventManager.RemoveEventHandlers(OverwatchMain.plugin);
+			OverwatchMain.plugin.EventManager.RemoveEventHandlers(OverwatchMain.plugin);
 			OverwatchMain.plugin.AddEventHandler(typeof(IEventHandlerRoundEnd), new OverwatchEventLogic(OverwatchMain.plugin));
 		}
 
@@ -72,7 +72,7 @@ namespace Overwatch
 
 		public void OnRoundEnd(RoundEndEvent ev)
 		{
-			plugin.eventManager.RemoveEventHandlers(plugin);
+			plugin.EventManager.RemoveEventHandlers(plugin);
 			OverwatchEventLogic events = new OverwatchEventLogic(plugin);
 			plugin.AddEventHandler(typeof(IEventHandlerRoundEnd), events);
 			plugin.AddEventHandler(typeof(IEventHandlerRoundStart), events);
